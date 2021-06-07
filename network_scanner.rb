@@ -24,7 +24,7 @@ def scan_ips(sel_intf)
     ips = IPAddress::IPv4.parse_classful(sel_intf.addr.ip_address)
     p_ips = 0
     r_data = []
-    ips.hosts[0..19].each do |ip|
+    ips.hosts.each do |ip|
         
         # puts "Processing --> #{ip.to_s}"
         `ping #{ip.to_s} -c 1`
@@ -41,8 +41,8 @@ def scan_ips(sel_intf)
         end
 
         p_ips += 1
-        progress = "=" * (((p_ips/ips.hosts[0..19].size.to_f) * 100 ) / 5) unless p_ips < 5
-        printf("\rProcessing: [%-20s] %d%%", progress, ((p_ips/ips.hosts[0..19].size.to_f) * 100 ).round(2))
+        progress = "=" * (((p_ips/ips.hosts.size.to_f) * 100 ) / 5) unless p_ips < 5
+        printf("\rProcessing: [%-20s] %d%%", progress, ((p_ips/ips.hosts.size.to_f) * 100 ).round(2))
         
     end
     return r_data
